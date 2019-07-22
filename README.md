@@ -17,17 +17,13 @@ Add the following to resources in your lovelace config:
 ```yaml
 resources:
   - url: /community_plugin/our-groceries-card/our-groceries-card.js
-  - type: js
+    type: js
 ```
 
 ## Configuration
 
-In your `configuration.yaml` file add:
-
 ```yaml
-ourgroceries:
-    username: !secret our_groceries_username
-    password: !secret our_groceries_password
+type: 'custom:our-groceries-card'
 ```
 
 ## Options
