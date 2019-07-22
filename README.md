@@ -1,5 +1,5 @@
 # Our Groceries Card
-Show your Our Groeries lists
+Show your Our Groceries lists. Right now it's in read-only state but I plan to add write changes soon.
 
 <img src='https://raw.githubusercontent.com/ljmerza/our-groceries-card/master/card.png' />
 
