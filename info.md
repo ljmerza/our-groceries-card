@@ -13,7 +13,7 @@ Add the following to resources in your lovelace config:
 ```yaml
 resources:
   - url: /community_plugin/our-groceries-card/our-groceries-card.js
-  - type: js
+    type: js
 ```
 
 ## Configuration
