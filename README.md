@@ -1,11 +1,15 @@
 # Our Groceries Card
-Show your Our Groceries lists. Right now it's in read-only state but I plan to add write changes soon.
+Show your Our Groceries lists.
 
 <img src='https://raw.githubusercontent.com/ljmerza/our-groceries-card/master/card.png' />
 
 [![GitHub Release][releases-shield]][releases]
 [![License][license-shield]](LICENSE.md)
 ![Project Maintenance][maintenance-shield]
+
+## Features
+* show your shopping lists
+* toggle crossed off items in a list
 
 ## Installation through [HACS](https://github.com/custom-components/hacs)
 ---

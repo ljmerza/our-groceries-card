@@ -1,7 +1,11 @@
 # Our Groceries Card
-Show your Our Groeries lists
+Show your Our Groceries lists.
 
 <img src='https://raw.githubusercontent.com/ljmerza/our-groceries-card/master/card.png' />
+
+## Features
+* show your shopping lists
+* toggle crossed off items in a list
 
 ## Installation through [HACS](https://github.com/custom-components/hacs)
 ---
