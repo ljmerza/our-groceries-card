@@ -43,10 +43,11 @@ const style = css`
     .our-groceries-card ul {
         margin: 0px;
         margin-bottom: 10px;
+        padding-inline-start: 30px;
     }
 
     .our-groceries-card li {
-        padding-bottom: 10px;
+        padding-bottom: 15px;
     }
 
     .pointer {

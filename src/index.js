@@ -1,4 +1,4 @@
-import '@babel/polyfill';
+import '@babel/polyfill/noConflict';
 
 import { LitElement, html } from 'lit-element';
 import style from './style';
@@ -35,6 +35,7 @@ class OurGroceriesCard extends LitElement {
     };
 
     this.entityName = 'sensor.our_groceries';
+    this.baseApiUrl = `ourgroceries`;
   }
 
   /**
@@ -91,16 +92,25 @@ class OurGroceriesCard extends LitElement {
       return;
     }
 
-    // get list, save it, and set as opened
+    await this.getListItems(list.id);
+  }
+
+  /**
+   * gets a list's items and saves in listItems property to trigger redraw
+   */
+  async getListItems(listId){
     try {
-      const url = `ourgroceries/${this.entity.entity_id}?list_id=${list.id}`;
-      const list_details = await this.__hass.callApi('get', url);
-      this.listItems[list.id] = list_details.list;
-      this.openedLists[list.id] = true;
+      const list_details = await this.hass.callApi('post', this.baseApiUrl, {
+        command: 'get_list_items',
+        list_id: listId
+      });
+
+      this.listItems[listId] = list_details.list;
+      this.openedLists[listId] = true;
       this.openedLists = { ...this.openedLists };
-      
-    } catch(error){
-      console.log({ error })
+
+    } catch (error) {
+      console.error({ error })
     }
   }
 
@@ -112,7 +122,6 @@ class OurGroceriesCard extends LitElement {
     const body = (this.entity.attributes.shopping_lists || []).map(list => {
       const isOpen = this.openedLists[list.id];
       const listDetails = isOpen && this.listItems[list.id];
-      console.log({ isOpen, listDetails });
 
       return html`
         <tr class='pointer' @click=${() => this.openList(list)}>
@@ -151,10 +160,10 @@ class OurGroceriesCard extends LitElement {
     return html`
       <td colspan='2'>
         <ul>
-          ${items.active.map(item => this.renderListItem(item))}
+          ${items.active.map(item => this.renderListItem(item, listDetails.id))}
         </ul>
         <ul>
-          ${items.crossedOff.map(item => this.renderListItem(item))}
+          ${items.crossedOff.map(item => this.renderListItem(item, listDetails.id))}
         </ul>
       </td>
     `
@@ -164,14 +173,43 @@ class OurGroceriesCard extends LitElement {
    * 
    * @param {OgListItem} item 
    */
-  renderListItem(item){
+  renderListItem(item, listId){
     return html`
       <li 
+        class="pointer ${item.crossedOff ? 'crossed-off' : ''}"
         .itemId=${item.id} 
         .crossedOff=${item.crossedOff} 
-        class="${item.crossedOff ? 'crossed-off' : ''}"
-      >${item.value}</li>
+        @click=${() => this.toggleItem(listId, item.id, !item.crossedOff)}
+      >
+        ${item.value}
+      </li>
     `;
+  }
+
+  /**
+   * togles an item's crossedOff property
+   * @param {string} listId 
+   * @param {string} itemId 
+   * @param {boolean} crossedOff 
+   */
+  async toggleItem(listId, itemId, crossedOff) {
+    try {
+      await this.hass.callApi('post', this.baseApiUrl, {
+        command: 'toggle_item_crossed_off', 
+        list_id: listId,
+        item_id: itemId,
+        cross_off: crossedOff
+      });
+
+      await this.getListItems(listId);
+
+    } catch(error){
+      console.error({ error });
+    }
+  }
+
+  async refeshLists(){
+
   }
 
   /**
