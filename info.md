@@ -32,9 +32,11 @@ type: 'custom:our-groceries-card'
 | :---- | :---- | :------- | :----------- |
 | title | string | **Optional** | `Github` Change card title
 | show_header | boolean | **Optional** | `true` Show or hide header
+| entity | string | **Optional** | `sensor.our_groceries` the our groceries sensor
 
 ---
 
 Enjoy my card? Help me out for a couple of :beers: or a :coffee:!
 
 [![coffee](https://www.buymeacoffee.com/assets/img/custom_images/black_img.png)](https://www.buymeacoffee.com/JMISm06AD)
+

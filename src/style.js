@@ -46,8 +46,37 @@ const style = css`
         padding-inline-start: 30px;
     }
 
+    .our-groceries-card .td-name ha-icon,
+    .our-groceries-card .new-item ha-icon {
+        color: var(--primary-color);
+    }
+
     .our-groceries-card li {
         padding-bottom: 15px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .our-groceries-card li div {
+        margin-top: 3px;
+        padding-right: 10px;
+        max-width: 88%;
+    }
+
+    .our-groceries-card li ha-icon {
+        width: 24px;
+        height: 24px;
+        color: var(--google-red-500);
+    }
+
+    .our-groceries-card .new-item {
+        display: flex;
+    }
+
+    .our-groceries-card .add-item {
+        align-self: center;
+        margin-left: 10px;
+        margin-top: 10px;
     }
 
     .pointer {

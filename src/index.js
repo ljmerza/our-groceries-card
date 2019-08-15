@@ -22,6 +22,7 @@ class OurGroceriesCard extends LitElement {
     super();
     this.openedLists = {};
     this.listItems = {};
+    this.showAddItems = {};
   }
 
   // static async getConfigElement() {
@@ -34,7 +35,6 @@ class OurGroceriesCard extends LitElement {
       ...config,
     };
 
-    this.entityName = 'sensor.our_groceries';
     this.baseApiUrl = `ourgroceries`;
   }
 
@@ -55,7 +55,7 @@ class OurGroceriesCard extends LitElement {
    * @return {TemplateResult}
    */
   render() {
-    this.entity = this.hass.states[this.entityName];
+    this.entity = this.hass.states[this.config.entity];
     if (!this.entity) {
       throw new Error(`Our Groceries sensor not found.`);
     }
@@ -114,6 +114,52 @@ class OurGroceriesCard extends LitElement {
     }
   }
 
+  toggleNewItem(event, listId){
+    if (!this.showAddItems[listId]) this.showAddItems[listId] = {};
+
+    const newItem = this.showAddItems[listId];
+    newItem.show = !newItem.show;
+
+    if (!newItem.show){
+      this.showAddItems[listId] = null;
+    }
+    this.performUpdate();
+  }
+
+  updateNewItem(event, listId) {
+    const newItem = this.showAddItems[listId];
+    newItem.value = event.target.value;
+  }
+
+  async addNewItem({key}, listId) {
+    if (key !== 'Enter') return;
+
+    const newItem = { ...this.showAddItems[listId] };
+    this.performUpdate();
+
+    try {
+      await this.hass.callApi('post', this.baseApiUrl, {
+        command: 'add_item_to_list',
+        list_id: listId,
+        value: newItem.value,
+      });
+
+      // after adding reset new item, 
+      this.showAddItems[listId] = {};
+
+      // if list open then refresh list else just force card update
+      const isOpen = this.openedLists[listId];
+      if (isOpen){
+        await this.getListItems(listId);
+      } else {
+        this.performUpdate();
+      }
+
+    } catch (error) {
+      console.error({ error })
+    }
+  }
+
   /**
    * generates the card body
    * @return {TemplateResult}
@@ -122,12 +168,19 @@ class OurGroceriesCard extends LitElement {
     const body = (this.entity.attributes.shopping_lists || []).map(list => {
       const isOpen = this.openedLists[list.id];
       const listDetails = isOpen && this.listItems[list.id];
+      const addingItem = (this.showAddItems[list.id] || {});
 
       return html`
-        <tr class='pointer' @click=${() => this.openList(list)}>
-          <td class='td td-name'>${list.name}</td>
-          <td class='td td-count'>${list.activeCount}</td>
         <tr>
+          <td class='td td-name pointer'>
+            <ha-icon icon="mdi:plus" @click="${event => this.toggleNewItem(event, list.id)}"></ha-icon>
+            <span @click=${() => this.openList(list)}>${list.name}</span>
+          </td>
+          <td class='td td-count'>
+            ${list.activeCount} 
+          </td>
+        <tr>
+        ${addingItem.show ? this.renderNewItem(addingItem, list): null}
         <tr>
           ${isOpen && listDetails ? this.renderList(listDetails) : null}
         </tr>
@@ -142,6 +195,25 @@ class OurGroceriesCard extends LitElement {
         </tbody>
       </table>
     `;
+  }
+
+  renderNewItem(addingItem, list) {
+    return html`
+      <tr>
+        <td class='td new-item'>
+          <paper-input
+            label="New Item"
+            .value="${addingItem.value}"
+            @keypress=${event => this.addNewItem(event, list.id)}
+            @value-changed="${event => this.updateNewItem(event, list.id)}"
+          ></paper-input>
+          <ha-icon 
+            icon="mdi:file-send" 
+            class='add-item pointer'
+            @click="${() => this.addNewItem({ key: 'Enter'}, list.id)}"
+          ></ha-icon>
+        </td>
+      <tr>`
   }
 
   /**
@@ -179,11 +251,27 @@ class OurGroceriesCard extends LitElement {
         class="pointer ${item.crossedOff ? 'crossed-off' : ''}"
         .itemId=${item.id} 
         .crossedOff=${item.crossedOff} 
-        @click=${() => this.toggleItem(listId, item.id, !item.crossedOff)}
       >
-        ${item.value}
+        <div @click=${() => this.toggleItem(listId, item.id, !item.crossedOff)}>${item.value}</div>
+        <ha-icon icon="mdi:delete" @click="${() => this.removeItem(listId, item.id)}"></ha-icon>
       </li>
     `;
+  }
+
+  async removeItem(listId, itemId){
+    try {
+      await this.hass.callApi('post', this.baseApiUrl, {
+        command: 'remove_item_from_list',
+        list_id: listId,
+        item_id: itemId,
+      });
+
+      // list had to be open to delete item so refresh list
+      await this.getListItems(listId);
+
+    } catch (error) {
+      console.error({ error })
+    }
   }
 
   /**
