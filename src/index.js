@@ -234,9 +234,12 @@ class OurGroceriesCard extends LitElement {
         <ul>
           ${items.active.map(item => this.renderListItem(item, listDetails.id))}
         </ul>
-        <ul>
-          ${items.crossedOff.map(item => this.renderListItem(item, listDetails.id))}
-        </ul>
+        ${this.config.show_crossed_off ? html`
+            <ul>
+              ${items.crossedOff.map(item => this.renderListItem(item, listDetails.id))}
+            </ul>
+          ` : null
+        }
       </td>
     `
   }
