@@ -114,6 +114,11 @@ class OurGroceriesCard extends LitElement {
     }
   }
 
+  /**
+   * 
+   * @param {Event} event 
+   * @param {string} listId
+   */
   toggleNewItem(event, listId){
     if (!this.showAddItems[listId]) this.showAddItems[listId] = {};
 
@@ -126,15 +131,27 @@ class OurGroceriesCard extends LitElement {
     this.performUpdate();
   }
 
+  /**
+   *
+   * @param {Event} event
+   * @param {string} listId
+   */
   updateNewItem(event, listId) {
     const newItem = this.showAddItems[listId];
     newItem.value = event.target.value;
   }
 
+  /**
+   * 
+   * @param {Event} key 
+   * @param {string} listId 
+   */
   async addNewItem({key}, listId) {
     if (key !== 'Enter') return;
 
     const newItem = { ...this.showAddItems[listId] };
+    if (!newItem.value) return;
+
     this.performUpdate();
 
     try {
@@ -179,11 +196,9 @@ class OurGroceriesCard extends LitElement {
           <td class='td td-count'>
             ${list.activeCount} 
           </td>
-        <tr>
-        ${addingItem.show ? this.renderNewItem(addingItem, list): null}
-        <tr>
-          ${isOpen && listDetails ? this.renderList(listDetails) : null}
         </tr>
+        ${addingItem.show ? this.renderNewItem(addingItem, list): null}
+        ${isOpen && listDetails ? this.renderList(listDetails) : null}
       `;
     });
 
@@ -197,6 +212,12 @@ class OurGroceriesCard extends LitElement {
     `;
   }
 
+  /**
+   * 
+   * @param {Object} addingItem 
+   * @param {Array<OgList>} list 
+   * @return {TemplateResult}
+   */
   renderNewItem(addingItem, list) {
     return html`
       <tr>
@@ -218,9 +239,26 @@ class OurGroceriesCard extends LitElement {
 
   /**
    * 
+   * @return {TemplateResult}
+   */
+  renderNoItems() {
+    return html`
+      <tr>
+        <td colspan='2'>
+          <div class='list-no-items'>No items in list</div>
+        </td>
+      </tr>
+    `;
+  }
+
+  /**
+   * 
    * @param {OgList} listDetails 
+   * @return {TemplateResult}
    */
   renderList(listDetails){
+    if (listDetails.items.length === 0) 
+      return this.renderNoItems();
 
     // sort by active and crossed off items
     const items = listDetails.items.reduce((acc, curr) => {
@@ -229,29 +267,36 @@ class OurGroceriesCard extends LitElement {
       return acc;
     },{active: [], crossedOff: []});
 
+    // if we dont show crossed off items only look at active items 
+    if (!this.config.show_crossed_off && items.active.length === 0) 
+      return this.renderNoItems();
+
     return html`
-      <td colspan='2'>
-        <ul>
-          ${items.active.map(item => this.renderListItem(item, listDetails.id))}
-        </ul>
-        ${this.config.show_crossed_off ? html`
-            <ul>
-              ${items.crossedOff.map(item => this.renderListItem(item, listDetails.id))}
-            </ul>
-          ` : null
-        }
-      </td>
-    `
+      <tr>
+        <td colspan='2'>
+          <ul>
+            ${items.active.map(item => this.renderListItem(item, listDetails.id))}
+          </ul>
+          ${this.config.show_crossed_off ? html`
+              <ul>
+                ${items.crossedOff.map(item => this.renderListItem(item, listDetails.id))}
+              </ul>
+            ` : null
+          }
+        </td>
+      </tr>
+    `;
   }
 
   /**
    * 
    * @param {OgListItem} item 
+   * @return {TemplateResult}
    */
   renderListItem(item, listId){
     return html`
       <li 
-        class="pointer ${item.crossedOff ? 'crossed-off' : ''}"
+        class="pointer list-item ${item.crossedOff ? 'crossed-off' : ''}"
         .itemId=${item.id} 
         .crossedOff=${item.crossedOff} 
       >
@@ -261,6 +306,11 @@ class OurGroceriesCard extends LitElement {
     `;
   }
 
+  /**
+   * 
+   * @param {string} listId 
+   * @param {string} itemId 
+   */
   async removeItem(listId, itemId){
     try {
       await this.hass.callApi('post', this.baseApiUrl, {
@@ -299,10 +349,6 @@ class OurGroceriesCard extends LitElement {
     }
   }
 
-  async refeshLists(){
-
-  }
-
   /**
    * generates the card body header
    * @return {TemplateResult}
@@ -312,7 +358,7 @@ class OurGroceriesCard extends LitElement {
       <thead>
         <tr>
           <th>Shopping Lists</th>
-          <th># Items</th>
+          <th class='td-count'># Items</th>
         </tr>
       <thead>
     `;

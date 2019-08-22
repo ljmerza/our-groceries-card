@@ -187,6 +187,10 @@ window.JSCompiler_renameProperty=(t,e)=>t;const q={toAttribute(t,e){switch(e){ca
         text-align: left;
     }
 
+    .our-groceries-card tbody .list-no-items{
+        padding-left: 60px;
+    }
+
     .our-groceries-card ul {
         margin: 0px;
         margin-bottom: 10px;
@@ -196,6 +200,18 @@ window.JSCompiler_renameProperty=(t,e)=>t;const q={toAttribute(t,e){switch(e){ca
     .our-groceries-card .td-name ha-icon,
     .our-groceries-card .new-item ha-icon {
         color: var(--primary-color);
+    }
+
+    .our-groceries-card .list-item {
+        padding-left: 8px;
+    }
+
+    .our-groceries-card .new-item {
+        padding: 0 0 0 35px;
+    }
+
+    .our-groceries-card .td-count {
+        text-align: right;
     }
 
     .our-groceries-card li {
@@ -245,7 +261,7 @@ window.JSCompiler_renameProperty=(t,e)=>t;const q={toAttribute(t,e){switch(e){ca
           ${this.renderBody()}
         </div>
       </ha-card>
-    `}async openList(t){if(this.openedLists[t.id])return this.openedLists[t.id]=!1,void(this.openedLists={...this.openedLists});await this.getListItems(t.id)}async getListItems(t){try{const e=await this.hass.callApi("post",this.baseApiUrl,{command:"get_list_items",list_id:t});this.listItems[t]=e.list,this.openedLists[t]=!0,this.openedLists={...this.openedLists}}catch(t){console.error({error:t})}}toggleNewItem(t,e){this.showAddItems[e]||(this.showAddItems[e]={});const n=this.showAddItems[e];n.show=!n.show,n.show||(this.showAddItems[e]=null),this.performUpdate()}updateNewItem(t,e){this.showAddItems[e].value=t.target.value}async addNewItem({key:t},e){if("Enter"!==t)return;const n={...this.showAddItems[e]};this.performUpdate();try{await this.hass.callApi("post",this.baseApiUrl,{command:"add_item_to_list",list_id:e,value:n.value}),this.showAddItems[e]={},this.openedLists[e]?await this.getListItems(e):this.performUpdate()}catch(t){console.error({error:t})}}renderBody(){const t=(this.entity.attributes.shopping_lists||[]).map(t=>{const e=this.openedLists[t.id],n=e&&this.listItems[t.id],r=this.showAddItems[t.id]||{};return C`
+    `}async openList(t){if(this.openedLists[t.id])return this.openedLists[t.id]=!1,void(this.openedLists={...this.openedLists});await this.getListItems(t.id)}async getListItems(t){try{const e=await this.hass.callApi("post",this.baseApiUrl,{command:"get_list_items",list_id:t});this.listItems[t]=e.list,this.openedLists[t]=!0,this.openedLists={...this.openedLists}}catch(t){console.error({error:t})}}toggleNewItem(t,e){this.showAddItems[e]||(this.showAddItems[e]={});const n=this.showAddItems[e];n.show=!n.show,n.show||(this.showAddItems[e]=null),this.performUpdate()}updateNewItem(t,e){this.showAddItems[e].value=t.target.value}async addNewItem({key:t},e){if("Enter"!==t)return;const n={...this.showAddItems[e]};if(n.value){this.performUpdate();try{await this.hass.callApi("post",this.baseApiUrl,{command:"add_item_to_list",list_id:e,value:n.value}),this.showAddItems[e]={},this.openedLists[e]?await this.getListItems(e):this.performUpdate()}catch(t){console.error({error:t})}}}renderBody(){const t=(this.entity.attributes.shopping_lists||[]).map(t=>{const e=this.openedLists[t.id],n=e&&this.listItems[t.id],r=this.showAddItems[t.id]||{};return C`
         <tr>
           <td class='td td-name pointer'>
             <ha-icon icon="mdi:plus" @click="${e=>this.toggleNewItem(e,t.id)}"></ha-icon>
@@ -254,11 +270,9 @@ window.JSCompiler_renameProperty=(t,e)=>t;const q={toAttribute(t,e){switch(e){ca
           <td class='td td-count'>
             ${t.activeCount} 
           </td>
-        <tr>
-        ${r.show?this.renderNewItem(r,t):null}
-        <tr>
-          ${e&&n?this.renderList(n):null}
         </tr>
+        ${r.show?this.renderNewItem(r,t):null}
+        ${e&&n?this.renderList(n):null}
       `});return C`
       <table>
         ${this.renderBodyHeader()}
@@ -281,31 +295,39 @@ window.JSCompiler_renameProperty=(t,e)=>t;const q={toAttribute(t,e){switch(e){ca
             @click="${()=>this.addNewItem({key:"Enter"},e.id)}"
           ></ha-icon>
         </td>
-      <tr>`}renderList(t){const e=t.items.reduce((t,e)=>{return(e.crossedOff?t.crossedOff:t.active).push(e),t},{active:[],crossedOff:[]});return C`
-      <td colspan='2'>
-        <ul>
-          ${e.active.map(e=>this.renderListItem(e,t.id))}
-        </ul>
-        ${this.config.show_crossed_off?C`
-            <ul>
-              ${e.crossedOff.map(e=>this.renderListItem(e,t.id))}
-            </ul>
-          `:null}
-      </td>
-    `}renderListItem(t,e){return C`
+      <tr>`}renderNoItems(){return C`
+      <tr>
+        <td colspan='2'>
+          <div class='list-no-items'>No items in list</div>
+        </td>
+      </tr>
+    `}renderList(t){if(0===t.items.length)return this.renderNoItems();const e=t.items.reduce((t,e)=>{return(e.crossedOff?t.crossedOff:t.active).push(e),t},{active:[],crossedOff:[]});return this.config.show_crossed_off||0!==e.active.length?C`
+      <tr>
+        <td colspan='2'>
+          <ul>
+            ${e.active.map(e=>this.renderListItem(e,t.id))}
+          </ul>
+          ${this.config.show_crossed_off?C`
+              <ul>
+                ${e.crossedOff.map(e=>this.renderListItem(e,t.id))}
+              </ul>
+            `:null}
+        </td>
+      </tr>
+    `:this.renderNoItems()}renderListItem(t,e){return C`
       <li 
-        class="pointer ${t.crossedOff?"crossed-off":""}"
+        class="pointer list-item ${t.crossedOff?"crossed-off":""}"
         .itemId=${t.id} 
         .crossedOff=${t.crossedOff} 
       >
         <div @click=${()=>this.toggleItem(e,t.id,!t.crossedOff)}>${t.value}</div>
         <ha-icon icon="mdi:delete" @click="${()=>this.removeItem(e,t.id)}"></ha-icon>
       </li>
-    `}async removeItem(t,e){try{await this.hass.callApi("post",this.baseApiUrl,{command:"remove_item_from_list",list_id:t,item_id:e}),await this.getListItems(t)}catch(t){console.error({error:t})}}async toggleItem(t,e,n){try{await this.hass.callApi("post",this.baseApiUrl,{command:"toggle_item_crossed_off",list_id:t,item_id:e,cross_off:n}),await this.getListItems(t)}catch(t){console.error({error:t})}}async refeshLists(){}renderBodyHeader(){return C`
+    `}async removeItem(t,e){try{await this.hass.callApi("post",this.baseApiUrl,{command:"remove_item_from_list",list_id:t,item_id:e}),await this.getListItems(t)}catch(t){console.error({error:t})}}async toggleItem(t,e,n){try{await this.hass.callApi("post",this.baseApiUrl,{command:"toggle_item_crossed_off",list_id:t,item_id:e,cross_off:n}),await this.getListItems(t)}catch(t){console.error({error:t})}}renderBodyHeader(){return C`
       <thead>
         <tr>
           <th>Shopping Lists</th>
-          <th># Items</th>
+          <th class='td-count'># Items</th>
         </tr>
       <thead>
     `}}customElements.define("our-groceries-card",at)}]);

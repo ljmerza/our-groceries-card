@@ -40,6 +40,10 @@ const style = css`
         text-align: left;
     }
 
+    .our-groceries-card tbody .list-no-items{
+        padding-left: 60px;
+    }
+
     .our-groceries-card ul {
         margin: 0px;
         margin-bottom: 10px;
@@ -49,6 +53,18 @@ const style = css`
     .our-groceries-card .td-name ha-icon,
     .our-groceries-card .new-item ha-icon {
         color: var(--primary-color);
+    }
+
+    .our-groceries-card .list-item {
+        padding-left: 8px;
+    }
+
+    .our-groceries-card .new-item {
+        padding: 0 0 0 35px;
+    }
+
+    .our-groceries-card .td-count {
+        text-align: right;
     }
 
     .our-groceries-card li {
