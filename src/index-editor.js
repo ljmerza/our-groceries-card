@@ -62,11 +62,24 @@ export default class GithubCardEditor extends LitElement {
             .configValue="${"title"}"
             @value-changed="${this._valueChanged}"
           ></paper-input>
+
           <paper-checkbox
             @checked-changed="${this._valueChanged}" 
-            .checked=${this._config.show_extended}
-            .configValue="${"show_extended"}"
-          >Show Extended</paper-checkbox>
+            .checked=${this._config.show_header}
+            .configValue="${"show_header"}"
+          >Show Title</paper-checkbox>
+
+          <paper-checkbox
+            @checked-changed="${this._valueChanged}" 
+            .checked=${this._config.show_crossed_off}
+            .configValue="${"show_crossed_off"}"
+          >Show Crossed Off</paper-checkbox>
+
+          <paper-checkbox
+            @checked-changed="${this._valueChanged}" 
+            .checked=${this._config.expanded}
+            .configValue="${"expanded"}"
+          >Expanded</paper-checkbox>
         </div>
 
         <div class='entities'>

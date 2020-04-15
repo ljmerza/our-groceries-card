@@ -4,4 +4,5 @@ export default {
     title: 'Our Groceries',
     entity: 'sensor.our_groceries',
     show_crossed_off: true,
+    expanded: false,
 }

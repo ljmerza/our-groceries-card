@@ -1,12 +1,15 @@
 import '@babel/polyfill/noConflict';
 
 import { LitElement, html } from 'lit-element';
+import packageJson from '../package.json';
 import style from './style';
-
 import defaultConfig from './defaults';
 
 // import TravelTimeEditor from './index-editor';
 // customElements.define('travel-time-card-editor', TravelTimeEditor);
+
+/* eslint no-console: 0 */
+console.info(`%c  OUR_GROCERIES-CARD   \n%c  Version ${packageJson.version}      `, "color: orange; font-weight: bold; background: black", "color: white; font-weight: bold; background: dimgray");
 
 
 class OurGroceriesCard extends LitElement {
@@ -183,9 +186,11 @@ class OurGroceriesCard extends LitElement {
    */
   renderBody() {
     const body = (this.entity.attributes.shopping_lists || []).map(list => {
-      const isOpen = this.openedLists[list.id];
-      const listDetails = isOpen && this.listItems[list.id];
-      const addingItem = (this.showAddItems[list.id] || {});
+      let addingItem = (this.showAddItems[list.id] || {});
+      
+      let isOpen = this.openedLists[list.id];
+      let listDetails = isOpen && this.listItems[list.id];
+      if (this.config.expanded) this.openList(list);
 
       return html`
         <tr>
