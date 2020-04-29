@@ -13,8 +13,6 @@ Show your Our Groceries lists.
 * toggle crossed off items in a list
 
 ## Installation through [HACS](https://github.com/custom-components/hacs)
----
-
 The [Our Groceries Custom Component](https://github.com/ljmerza/ha-our-groceries) is required for this card.
 
 ## Configuration
