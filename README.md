@@ -17,14 +17,6 @@ Show your Our Groceries lists.
 
 The [Our Groceries Custom Component](https://github.com/ljmerza/ha-our-groceries) is required for this card.
 
-Add the following to resources in your lovelace config:
-
-```yaml
-resources:
-  - url: /community_plugin/our-groceries-card/our-groceries-card.js
-    type: js
-```
-
 ## Configuration
 
 ```yaml
@@ -39,7 +31,6 @@ type: 'custom:our-groceries-card'
 | show_header | boolean | **Optional** | `true` Show or hide header
 | entity | string | **Optional** | `sensor.our_groceries` the our groceries sensor
 | show_crossed_off | boolean | **Optional** | `true` show crossed of list items
-| expanded | boolean | **Optional** | `false` automatically expand all lists
 
 ---
 
