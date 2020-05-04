@@ -1,5 +1,7 @@
 # Our Groceries Card
-Show your Our Groceries lists.
+Manage your [Our Groceries](https://www.ourgroceries.com/) lists in your [Home Assistant](https://www.home-assistant.io/) lovelace UI. 
+
+Multiple lists are supported as shown below.
 
 <img src='https://raw.githubusercontent.com/ljmerza/our-groceries-card/master/card.png' />
 
@@ -13,7 +15,10 @@ Show your Our Groceries lists.
 * toggle crossed off items in a list
 
 ## Installation through [HACS](https://github.com/custom-components/hacs)
-The [Our Groceries Custom Component](https://github.com/ljmerza/ha-our-groceries) is required for this card.
+
+Use [HACS](https://github.com/custom-components/hacs) to install the **Our Groceries Card** plugin.
+
+The [Our Groceries](https://github.com/ljmerza/ha-our-groceries) integration is required for this card to work which is also available via [HACS](https://github.com/custom-components/hacs)
 
 ## Configuration
 
@@ -21,15 +26,26 @@ The [Our Groceries Custom Component](https://github.com/ljmerza/ha-our-groceries
 type: 'custom:our-groceries-card'
 ```
 
-## Options
----
-| Name | Type | Requirement | `Default` Description
-| :---- | :---- | :------- | :----------- |
-| title | string | **Optional** | `Github` Change card title
-| show_header | boolean | **Optional** | `true` Show or hide header
-| entity | string | **Optional** | `sensor.our_groceries` the our groceries sensor
-| show_crossed_off | boolean | **Optional** | `true` show crossed of list items
+### Example:
+```yaml
+type: 'custom:our-groceries-card'
+title: Our Shopping
+show_header: true
+entity: sensor.our_groceries
+show_crossed_off: false
+```
 
+## Options
+
+| Name | Type | Requirement | Default | Description |
+| :---- | :---- | :------- | :----------- |:----------- |
+| type | string | **Required** | | `custom:our-groceries-card` |
+| title | string | **Optional** | `<Sensor Name>` | Change card title |
+| show_header | boolean | **Optional** | `true` | Show or hide header| 
+| entity | string | **Optional** | `sensor.our_groceries` | the our groceries sensor |
+| show_crossed_off | boolean | **Optional** | `true` | show crossed of list items |
+
+</br>
 ---
 
 Enjoy my card? Help me out for a couple of :beers: or a :coffee:!
