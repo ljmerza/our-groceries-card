@@ -44,6 +44,7 @@ show_crossed_off: false
 | show_header | boolean | **Optional** | `true` | Show or hide header| 
 | entity | string | **Optional** | `sensor.our_groceries` | the our groceries sensor |
 | show_crossed_off | boolean | **Optional** | `true` | show crossed of list items |
+| expanded | boolean | **Optional** | `true` | expand the lists after load |
 
 </br>
 ---
