@@ -13544,8 +13544,6 @@ class OurGroceriesCard extends lit_element__WEBPACK_IMPORTED_MODULE_1__["LitElem
       let shouldShowList = false;
 
       if(listsHaveBeenSpecified){
-        console.log("Lists Has been specified");
-        console.log(this.config.show_lists);
         //only show specified lists if user has set at least one item in show_lists
         let listIsSpecifiedAndEmpty = (listIsSpecificallyIncluded && listIsCurrentlyEmpty);
         let listIsSpecifiedWithItems = (listIsSpecificallyIncluded && !listIsCurrentlyEmpty);
