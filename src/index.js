@@ -185,8 +185,6 @@ class OurGroceriesCard extends LitElement {
    * @return {TemplateResult}
    */
   renderBody() {
-    console.log("shopping_lists");
-    console.log(shopping_lists);
     const body = (this.entity.attributes.shopping_lists || []).map(list => {
       let addingItem = (this.showAddItems[list.id] || {});
 
@@ -194,19 +192,25 @@ class OurGroceriesCard extends LitElement {
       let listDetails = isOpen && this.listItems[list.id];
       if (this.config.expanded) this.openList(list);
 
-      return html`
-        <tr>
-          <td class='td td-name pointer'>
-            <ha-icon icon="mdi:plus" @click="${event => this.toggleNewItem(event, list.id)}"></ha-icon>
-            <span @click=${() => this.openList(list)}>${list.name}</span>
-          </td>
-          <td class='td td-count'>
-            ${list.activeCount}
-          </td>
-        </tr>
-        ${addingItem.show ? this.renderNewItem(addingItem, list): null}
-        ${isOpen && listDetails ? this.renderList(listDetails) : null}
-      `;
+
+      if(this.config.show_empty || (!this.config.show_empty && list.activeCount > 0)){
+
+        return html`
+          <tr>
+            <td class='td td-name pointer'>
+              <ha-icon icon="mdi:plus" @click="${event => this.toggleNewItem(event, list.id)}"></ha-icon>
+              <span @click=${() => this.openList(list)}>${list.name}</span>
+            </td>
+            <td class='td td-count'>
+              ${list.activeCount}
+            </td>
+          </tr>
+          ${addingItem.show ? this.renderNewItem(addingItem, list): null}
+          ${isOpen && listDetails ? this.renderList(listDetails) : null}
+        `;
+
+      }
+
     });
 
     return html`

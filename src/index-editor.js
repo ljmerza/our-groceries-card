@@ -64,19 +64,25 @@ export default class GithubCardEditor extends LitElement {
           ></paper-input>
 
           <paper-checkbox
-            @checked-changed="${this._valueChanged}" 
+            @checked-changed="${this._valueChanged}"
             .checked=${this._config.show_header}
             .configValue="${"show_header"}"
           >Show Title</paper-checkbox>
 
           <paper-checkbox
-            @checked-changed="${this._valueChanged}" 
+            @checked-changed="${this._valueChanged}"
+            .checked=${this._config.show_empty}
+            .configValue="${"show_empty"}"
+          >Show Empty Lists</paper-checkbox>
+
+          <paper-checkbox
+            @checked-changed="${this._valueChanged}"
             .checked=${this._config.show_crossed_off}
             .configValue="${"show_crossed_off"}"
           >Show Crossed Off</paper-checkbox>
 
           <paper-checkbox
-            @checked-changed="${this._valueChanged}" 
+            @checked-changed="${this._valueChanged}"
             .checked=${this._config.expanded}
             .configValue="${"expanded"}"
           >Expanded</paper-checkbox>
@@ -86,8 +92,8 @@ export default class GithubCardEditor extends LitElement {
           <h3>Entities</h3>
           ${
             this.entityOptions.map(entity => {
-              return html`<paper-checkbox 
-                @checked-changed="${this._valueChanged}" 
+              return html`<paper-checkbox
+                @checked-changed="${this._valueChanged}"
                 .checked=${entity.checked}
                 .entityValue="${entity.name}"
               >${entity.name}</paper-checkbox>`;
@@ -123,4 +129,3 @@ export default class GithubCardEditor extends LitElement {
     fireEvent(this, 'config-changed', { config: this._config });
   }
 }
-
