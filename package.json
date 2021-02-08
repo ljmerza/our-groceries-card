@@ -11,8 +11,8 @@
         "Our Groceries",
         "custom-cards"
     ],
-    "repository": "git@github.com:ljmerza/our-groceries-card.git",
-    "author": "Leonardo Merza <ljmerza@gmail.com>",
+    "repository": "git@github.com:jampez77/our-groceries-card.git",
+    "author": "Jamie Pezone <jampez77@gmail.com>",
     "license": "MIT",
     "dependencies": {
         "@babel/polyfill": "^7.4.4",
