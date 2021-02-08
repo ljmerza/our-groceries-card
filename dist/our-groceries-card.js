@@ -13318,7 +13318,8 @@ __webpack_require__.r(__webpack_exports__);
     entity: 'sensor.our_groceries',
     show_crossed_off: true,
     expanded: false,
-    show_empty: false,
+    show_empty: true,
+    show_lists: [],
 });
 
 /***/ }),
@@ -13526,8 +13527,6 @@ class OurGroceriesCard extends lit_element__WEBPACK_IMPORTED_MODULE_1__["LitElem
    * @return {TemplateResult}
    */
   renderBody() {
-    console.log("shopping_lists");
-    console.log(this.entity.attributes.shopping_lists);
     const body = (this.entity.attributes.shopping_lists || []).map(list => {
       let addingItem = (this.showAddItems[list.id] || {});
 
