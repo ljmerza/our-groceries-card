@@ -13526,6 +13526,8 @@ class OurGroceriesCard extends lit_element__WEBPACK_IMPORTED_MODULE_1__["LitElem
    * @return {TemplateResult}
    */
   renderBody() {
+    console.log("shopping_lists");
+    console.log(this.entity.attributes.shopping_lists);
     const body = (this.entity.attributes.shopping_lists || []).map(list => {
       let addingItem = (this.showAddItems[list.id] || {});
 
