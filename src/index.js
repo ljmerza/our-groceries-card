@@ -196,7 +196,7 @@ class OurGroceriesCard extends LitElement {
 
       let listIsSpecificallyIncluded = this.config.show_lists.includes(list.id);
 
-      let listIsCurrentlyEmpty = (list.activeCount =< 0);
+      let listIsCurrentlyEmpty = (list.activeCount <= 0);
       let allowingEmptyLists = this.config.show_empty;
 
       let shouldShowList = false;
