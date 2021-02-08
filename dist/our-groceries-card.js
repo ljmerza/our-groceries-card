@@ -13298,7 +13298,7 @@ try {
 /*! exports provided: name, version, description, keywords, repository, author, license, dependencies, devDependencies, scripts, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"our-groceries-card\",\"version\":\"1.5.7\",\"description\":\"An Our Groceries card for Home Assistant Lovelace UI\",\"keywords\":[\"home-assistant\",\"homeassistant\",\"hass\",\"automation\",\"lovelace\",\"Our Groceries\",\"custom-cards\"],\"repository\":\"git@github.com:jampez77/our-groceries-card.git\",\"author\":\"Jamie Pezone <jampez77@gmail.com>\",\"license\":\"MIT\",\"dependencies\":{\"@babel/polyfill\":\"^7.4.4\",\"lit-element\":\"^2.2.0\"},\"devDependencies\":{\"@babel/cli\":\"^7.5.5\",\"@babel/core\":\"^7.5.5\",\"@babel/preset-env\":\"^7.5.5\",\"babel-loader\":\"^8.0.6\",\"eslint\":\"^6.0.1\",\"eslint-config-airbnb-base\":\"^13.2.0\",\"eslint-plugin-import\":\"^2.18.2\",\"webpack\":\"^4.36.1\",\"webpack-cli\":\"^3.3.6\",\"webpack-merge\":\"^4.2.1\"},\"scripts\":{\"lint\":\"eslint ./src\",\"start\":\"webpack --watch --config webpack/config.dev.js\",\"build\":\"webpack --config webpack/config.prod.js\"}}");
+module.exports = JSON.parse("{\"name\":\"our-groceries-card\",\"version\":\"1.5.8\",\"description\":\"An Our Groceries card for Home Assistant Lovelace UI\",\"keywords\":[\"home-assistant\",\"homeassistant\",\"hass\",\"automation\",\"lovelace\",\"Our Groceries\",\"custom-cards\"],\"repository\":\"git@github.com:jampez77/our-groceries-card.git\",\"author\":\"Jamie Pezone <jampez77@gmail.com>\",\"license\":\"MIT\",\"dependencies\":{\"@babel/polyfill\":\"^7.4.4\",\"lit-element\":\"^2.2.0\"},\"devDependencies\":{\"@babel/cli\":\"^7.5.5\",\"@babel/core\":\"^7.5.5\",\"@babel/preset-env\":\"^7.5.5\",\"babel-loader\":\"^8.0.6\",\"eslint\":\"^6.0.1\",\"eslint-config-airbnb-base\":\"^13.2.0\",\"eslint-plugin-import\":\"^2.18.2\",\"webpack\":\"^4.36.1\",\"webpack-cli\":\"^3.3.6\",\"webpack-merge\":\"^4.2.1\"},\"scripts\":{\"lint\":\"eslint ./src\",\"start\":\"webpack --watch --config webpack/config.dev.js\",\"build\":\"webpack --config webpack/config.prod.js\"}}");
 
 /***/ }),
 
@@ -13534,7 +13534,34 @@ class OurGroceriesCard extends lit_element__WEBPACK_IMPORTED_MODULE_1__["LitElem
       let listDetails = isOpen && this.listItems[list.id];
       if (this.config.expanded) this.openList(list);
 
-      if(this.config.show_empty || (!this.config.show_empty && list.activeCount > 0)){
+      let listsHaveBeenSpecified = (this.config.show_lists.length > 0);
+
+      let listIsSpecificallyIncluded = this.config.show_lists.includes(list.id);
+
+      let listIsCurrentlyEmpty = (list.activeCount =< 0);
+      let allowingEmptyLists = this.config.show_empty;
+
+      let shouldShowList = false;
+
+      if(listsHaveBeenSpecified){
+        //only show specified lists if user has set at least one item in show_lists
+        let listIsSpecifiedAndEmpty = (listIsSpecificallyIncluded && listIsCurrentlyEmpty);
+        let listIsSpecifiedWithItems = (listIsSpecificallyIncluded && !listIsCurrentlyEmpty);
+        //now determine is empty lists are to be shown.
+        if(allowingEmptyLists || (!allowingEmptyLists && !listIsCurrentlyEmpty)){
+          shouldShowList = true;
+        }
+      } else {
+        //No lists specified so just determine is we are adding empty ones
+        let listIsNotSpecifiedAndEmpty = (!listIsSpecificallyIncluded && listIsCurrentlyEmpty);
+        let listIsNotSpecifiedWithItems = (!listIsSpecificallyIncluded && !listIsCurrentlyEmpty);
+        //now determine is empty lists are to be shown.
+        if(allowingEmptyLists || (!allowingEmptyLists && !listIsCurrentlyEmpty)){
+          shouldShowList = true;
+        }
+      }
+
+      if(shouldShowList){
         return lit_element__WEBPACK_IMPORTED_MODULE_1__["html"]`
           <tr>
             <td class='td td-name pointer'>
