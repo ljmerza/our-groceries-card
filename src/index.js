@@ -194,8 +194,34 @@ class OurGroceriesCard extends LitElement {
       let listDetails = isOpen && this.listItems[list.id];
       if (this.config.expanded) this.openList(list);
 
+      let listsHaveBeenSpecified = (this.config.show_lists.length > 0);
 
-      if(this.config.show_empty || (!this.config.show_empty && list.activeCount > 0)){
+      let listIsSpecificallyIncluded = this.config.show_lists.includes(list.id);
+
+      let listIsCurrentlyEmpty = (list.activeCount =< 0);
+      let allowingEmptyLists = this.config.show_empty;
+
+      let shouldShowList = false;
+
+      if(listsHaveBeenSpecified){
+        //only show specified lists if user has set at least one item in show_lists
+        let listIsSpecifiedAndEmpty = (listIsSpecificallyIncluded && listIsCurrentlyEmpty);
+        let listIsSpecifiedWithItems = (listIsSpecificallyIncluded && !listIsCurrentlyEmpty);
+        //now determine is empty lists are to be shown.
+        if(allowingEmptyLists || (!allowingEmptyLists && !listIsCurrentlyEmpty)){
+          shouldShowList = true;
+        }
+      } else {
+        //No lists specified so just determine is we are adding empty ones
+        let listIsNotSpecifiedAndEmpty = (!listIsSpecificallyIncluded && listIsCurrentlyEmpty);
+        let listIsNotSpecifiedWithItems = (!listIsSpecificallyIncluded && !listIsCurrentlyEmpty);
+        //now determine is empty lists are to be shown.
+        if(allowingEmptyLists || (!allowingEmptyLists && !listIsCurrentlyEmpty)){
+          shouldShowList = true;
+        }
+      }
+
+      if(shouldShowList){
 
         return html`
           <tr>
