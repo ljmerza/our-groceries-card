@@ -66,12 +66,12 @@ class OurGroceriesCard extends LitElement {
     return html`
       <ha-card class='our-groceries-card'>
         <style>${OurGroceriesCard.styles}</style>
-        ${this.config.show_header ? 
+        ${this.config.show_header ?
           html`
             <div class='header'>
               ${this.config.title}
             </div>
-          ` 
+          `
           : null
         }
         <div class='body'>
@@ -118,8 +118,8 @@ class OurGroceriesCard extends LitElement {
   }
 
   /**
-   * 
-   * @param {Event} event 
+   *
+   * @param {Event} event
    * @param {string} listId
    */
   toggleNewItem(event, listId){
@@ -145,9 +145,9 @@ class OurGroceriesCard extends LitElement {
   }
 
   /**
-   * 
-   * @param {Event} key 
-   * @param {string} listId 
+   *
+   * @param {Event} key
+   * @param {string} listId
    */
   async addNewItem({key}, listId) {
     if (key !== 'Enter') return;
@@ -164,7 +164,7 @@ class OurGroceriesCard extends LitElement {
         value: newItem.value,
       });
 
-      // after adding reset new item, 
+      // after adding reset new item,
       this.showAddItems[listId] = {};
 
       // if list open then refresh list else just force card update
@@ -185,9 +185,11 @@ class OurGroceriesCard extends LitElement {
    * @return {TemplateResult}
    */
   renderBody() {
+    console.log("shopping_lists");
+    console.log(shopping_lists);
     const body = (this.entity.attributes.shopping_lists || []).map(list => {
       let addingItem = (this.showAddItems[list.id] || {});
-      
+
       let isOpen = this.openedLists[list.id];
       let listDetails = isOpen && this.listItems[list.id];
       if (this.config.expanded) this.openList(list);
@@ -199,7 +201,7 @@ class OurGroceriesCard extends LitElement {
             <span @click=${() => this.openList(list)}>${list.name}</span>
           </td>
           <td class='td td-count'>
-            ${list.activeCount} 
+            ${list.activeCount}
           </td>
         </tr>
         ${addingItem.show ? this.renderNewItem(addingItem, list): null}
@@ -218,9 +220,9 @@ class OurGroceriesCard extends LitElement {
   }
 
   /**
-   * 
-   * @param {Object} addingItem 
-   * @param {Array<OgList>} list 
+   *
+   * @param {Object} addingItem
+   * @param {Array<OgList>} list
    * @return {TemplateResult}
    */
   renderNewItem(addingItem, list) {
@@ -233,8 +235,8 @@ class OurGroceriesCard extends LitElement {
             @keypress=${event => this.addNewItem(event, list.id)}
             @value-changed="${event => this.updateNewItem(event, list.id)}"
           ></paper-input>
-          <ha-icon 
-            icon="mdi:file-send" 
+          <ha-icon
+            icon="mdi:file-send"
             class='add-item pointer'
             @click="${() => this.addNewItem({ key: 'Enter'}, list.id)}"
           ></ha-icon>
@@ -243,7 +245,7 @@ class OurGroceriesCard extends LitElement {
   }
 
   /**
-   * 
+   *
    * @return {TemplateResult}
    */
   renderNoItems() {
@@ -257,12 +259,12 @@ class OurGroceriesCard extends LitElement {
   }
 
   /**
-   * 
-   * @param {OgList} listDetails 
+   *
+   * @param {OgList} listDetails
    * @return {TemplateResult}
    */
   renderList(listDetails){
-    if (listDetails.items.length === 0) 
+    if (listDetails.items.length === 0)
       return this.renderNoItems();
 
     // sort by active and crossed off items
@@ -272,8 +274,8 @@ class OurGroceriesCard extends LitElement {
       return acc;
     },{active: [], crossedOff: []});
 
-    // if we dont show crossed off items only look at active items 
-    if (!this.config.show_crossed_off && items.active.length === 0) 
+    // if we dont show crossed off items only look at active items
+    if (!this.config.show_crossed_off && items.active.length === 0)
       return this.renderNoItems();
 
     return html`
@@ -294,16 +296,16 @@ class OurGroceriesCard extends LitElement {
   }
 
   /**
-   * 
-   * @param {OgListItem} item 
+   *
+   * @param {OgListItem} item
    * @return {TemplateResult}
    */
   renderListItem(item, listId){
     return html`
-      <li 
+      <li
         class="pointer list-item ${item.crossedOff ? 'crossed-off' : ''}"
-        .itemId=${item.id} 
-        .crossedOff=${item.crossedOff} 
+        .itemId=${item.id}
+        .crossedOff=${item.crossedOff}
       >
         <div @click=${() => this.toggleItem(listId, item.id, !item.crossedOff)}>${item.value}</div>
         <ha-icon icon="mdi:delete" @click="${() => this.removeItem(listId, item.id)}"></ha-icon>
@@ -312,9 +314,9 @@ class OurGroceriesCard extends LitElement {
   }
 
   /**
-   * 
-   * @param {string} listId 
-   * @param {string} itemId 
+   *
+   * @param {string} listId
+   * @param {string} itemId
    */
   async removeItem(listId, itemId){
     try {
@@ -334,14 +336,14 @@ class OurGroceriesCard extends LitElement {
 
   /**
    * togles an item's crossedOff property
-   * @param {string} listId 
-   * @param {string} itemId 
-   * @param {boolean} crossedOff 
+   * @param {string} listId
+   * @param {string} itemId
+   * @param {boolean} crossedOff
    */
   async toggleItem(listId, itemId, crossedOff) {
     try {
       await this.hass.callApi('post', this.baseApiUrl, {
-        command: 'toggle_item_crossed_off', 
+        command: 'toggle_item_crossed_off',
         list_id: listId,
         item_id: itemId,
         cross_off: crossedOff
@@ -371,5 +373,3 @@ class OurGroceriesCard extends LitElement {
 }
 
 customElements.define('our-groceries-card', OurGroceriesCard);
-
-
