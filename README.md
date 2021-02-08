@@ -1,5 +1,5 @@
 # Our Groceries Card
-Manage your [Our Groceries](https://www.ourgroceries.com/) lists in your [Home Assistant](https://www.home-assistant.io/) lovelace UI. 
+Manage your [Our Groceries](https://www.ourgroceries.com/) lists in your [Home Assistant](https://www.home-assistant.io/) lovelace UI.
 
 Multiple lists are supported as shown below.
 
@@ -33,6 +33,9 @@ title: Our Shopping
 show_header: true
 entity: sensor.our_groceries
 show_crossed_off: false
+show_empty: false
+show_lists:
+  - DFJ4P393RPHFRPH3F4834P
 ```
 
 ## Options
@@ -41,9 +44,11 @@ show_crossed_off: false
 | :---- | :---- | :------- | :----------- |:----------- |
 | type | string | **Required** | | `custom:our-groceries-card` |
 | title | string | **Optional** | `<Sensor Name>` | Change card title |
-| show_header | boolean | **Optional** | `true` | Show or hide header| 
+| show_header | boolean | **Optional** | `true` | Show or hide header|
 | entity | string | **Optional** | `sensor.our_groceries` | the our groceries sensor |
 | show_crossed_off | boolean | **Optional** | `true` | show crossed of list items |
+| show_empty | boolean | **Optional** | `true` | show lists with no items |
+| show_lists | list | **Optional** | `null` | show specified lists using their OG ID |
 
 </br>
 ---
