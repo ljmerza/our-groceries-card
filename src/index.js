@@ -185,6 +185,8 @@ class OurGroceriesCard extends LitElement {
    * @return {TemplateResult}
    */
   renderBody() {
+    console.log("shopping_lists");
+    console.log(shopping_lists);
     const body = (this.entity.attributes.shopping_lists || []).map(list => {
       let addingItem = (this.showAddItems[list.id] || {});
 

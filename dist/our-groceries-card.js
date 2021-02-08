@@ -13318,7 +13318,7 @@ __webpack_require__.r(__webpack_exports__);
     entity: 'sensor.our_groceries',
     show_crossed_off: true,
     expanded: false,
-    show_empty: true,
+    show_empty: false,
 });
 
 /***/ }),
@@ -13407,7 +13407,7 @@ class OurGroceriesCard extends lit_element__WEBPACK_IMPORTED_MODULE_1__["LitElem
     return lit_element__WEBPACK_IMPORTED_MODULE_1__["html"]`
       <ha-card class='our-groceries-card'>
         <style>${OurGroceriesCard.styles}</style>
-        ${this.config.show_header ? 
+        ${this.config.show_header ?
           lit_element__WEBPACK_IMPORTED_MODULE_1__["html"]`
             <div class='header'>
               ${this.config.title}
