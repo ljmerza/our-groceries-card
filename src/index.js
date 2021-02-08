@@ -202,14 +202,17 @@ class OurGroceriesCard extends LitElement {
       let shouldShowList = false;
 
       if(listsHaveBeenSpecified){
+        console.log("Lists Has been specified");
+        console.log(this.config.show_lists);
         //only show specified lists if user has set at least one item in show_lists
         let listIsSpecifiedAndEmpty = (listIsSpecificallyIncluded && listIsCurrentlyEmpty);
         let listIsSpecifiedWithItems = (listIsSpecificallyIncluded && !listIsCurrentlyEmpty);
+
         //now determine is empty lists are to be shown.
-        if(allowingEmptyLists || (!allowingEmptyLists && !listIsCurrentlyEmpty)){
+        if((listIsSpecifiedAndEmpty && allowingEmptyLists) || listIsSpecifiedWithItems){
           shouldShowList = true;
         }
-      } else {
+      }else {
         //No lists specified so just determine is we are adding empty ones
         let listIsNotSpecifiedAndEmpty = (!listIsSpecificallyIncluded && listIsCurrentlyEmpty);
         let listIsNotSpecifiedWithItems = (!listIsSpecificallyIncluded && !listIsCurrentlyEmpty);
