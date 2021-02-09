@@ -85,10 +85,9 @@ class OurGroceriesCard extends LitElement {
    * Opens a list's details
    * @param {} list
    */
-  async openList(list, persistent) {
+  async openList(list) {
 
-    // if list is already open and were are not setting
-    // persistent bool then just close it
+    // if list is already open then just close it
     const isOpen = this.openedLists[list.id];
     if(isOpen){
       this.openedLists[list.id] = false;
@@ -96,30 +95,7 @@ class OurGroceriesCard extends LitElement {
       return;
     }
 
-    if(persistent){
-      await updateOpenList(list.id, list.activeCount);
-    } else {
-      await this.getListItems(list.id);
-    }
-  }
-
-  async updateOpenList(listId, activeCount){
-    try {
-      const list_details = await this.hass.callApi('post', this.baseApiUrl, {
-        command: 'get_list_items',
-        list_id: listId
-      });
-
-      if(list_details.list.length != activeCount){
-        //this.listItems[listId] = list_details.list;
-        //this.openedLists[listId] = true;
-        //this.openedLists = { ...this.openedLists };
-        this.performUpdate();
-      }
-
-    } catch (error) {
-      console.error({ error })
-    }
+    await this.getListItems(list.id);
   }
 
   /**
@@ -214,7 +190,7 @@ class OurGroceriesCard extends LitElement {
 
       let isOpen = this.openedLists[list.id];
       let listDetails = isOpen && this.listItems[list.id];
-      if (this.config.expanded) this.openList(list, true);
+      if (this.config.expanded) this.openList(list);
 
       let listsHaveBeenSpecified = (this.config.show_lists.length > 0);
 
@@ -250,7 +226,7 @@ class OurGroceriesCard extends LitElement {
           <tr>
             <td class='td td-name pointer'>
               <ha-icon icon="mdi:plus" @click="${event => this.toggleNewItem(event, list.id)}"></ha-icon>
-              <span @click=${() => this.openList(list, false)}>${list.name}</span>
+              <span @click=${() => this.openList(list)}>${list.name}</span>
             </td>
             <td class='td td-count'>
               ${list.activeCount}

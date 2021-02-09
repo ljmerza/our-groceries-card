@@ -13298,7 +13298,7 @@ try {
 /*! exports provided: name, version, description, keywords, repository, author, license, dependencies, devDependencies, scripts, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"our-groceries-card\",\"version\":\"1.5.14\",\"description\":\"An Our Groceries card for Home Assistant Lovelace UI\",\"keywords\":[\"home-assistant\",\"homeassistant\",\"hass\",\"automation\",\"lovelace\",\"Our Groceries\",\"custom-cards\"],\"repository\":\"git@github.com:jampez77/our-groceries-card.git\",\"author\":\"Jamie Pezone <jampez77@gmail.com>\",\"license\":\"MIT\",\"dependencies\":{\"@babel/polyfill\":\"^7.4.4\",\"lit-element\":\"^2.2.0\"},\"devDependencies\":{\"@babel/cli\":\"^7.5.5\",\"@babel/core\":\"^7.5.5\",\"@babel/preset-env\":\"^7.5.5\",\"babel-loader\":\"^8.0.6\",\"eslint\":\"^6.0.1\",\"eslint-config-airbnb-base\":\"^13.2.0\",\"eslint-plugin-import\":\"^2.18.2\",\"webpack\":\"^4.36.1\",\"webpack-cli\":\"^3.3.6\",\"webpack-merge\":\"^4.2.1\"},\"scripts\":{\"lint\":\"eslint ./src\",\"start\":\"webpack --watch --config webpack/config.dev.js\",\"build\":\"webpack --config webpack/config.prod.js\"}}");
+module.exports = JSON.parse("{\"name\":\"our-groceries-card\",\"version\":\"1.5.10\",\"description\":\"An Our Groceries card for Home Assistant Lovelace UI\",\"keywords\":[\"home-assistant\",\"homeassistant\",\"hass\",\"automation\",\"lovelace\",\"Our Groceries\",\"custom-cards\"],\"repository\":\"git@github.com:jampez77/our-groceries-card.git\",\"author\":\"Jamie Pezone <jampez77@gmail.com>\",\"license\":\"MIT\",\"dependencies\":{\"@babel/polyfill\":\"^7.4.4\",\"lit-element\":\"^2.2.0\"},\"devDependencies\":{\"@babel/cli\":\"^7.5.5\",\"@babel/core\":\"^7.5.5\",\"@babel/preset-env\":\"^7.5.5\",\"babel-loader\":\"^8.0.6\",\"eslint\":\"^6.0.1\",\"eslint-config-airbnb-base\":\"^13.2.0\",\"eslint-plugin-import\":\"^2.18.2\",\"webpack\":\"^4.36.1\",\"webpack-cli\":\"^3.3.6\",\"webpack-merge\":\"^4.2.1\"},\"scripts\":{\"lint\":\"eslint ./src\",\"start\":\"webpack --watch --config webpack/config.dev.js\",\"build\":\"webpack --config webpack/config.prod.js\"}}");
 
 /***/ }),
 
@@ -13427,42 +13427,18 @@ class OurGroceriesCard extends lit_element__WEBPACK_IMPORTED_MODULE_1__["LitElem
    * Opens a list's details
    * @param {} list
    */
-   async openList(list, persistent) {
+  async openList(list) {
 
-     // if list is already open and were are not setting
-     // persistent bool then just close it
-     const isOpen = this.openedLists[list.id];
-     if(isOpen){
-       this.openedLists[list.id] = false;
-       this.openedLists = { ...this.openedLists};
-       return;
-     }
+    // if list is already open then just close it
+    const isOpen = this.openedLists[list.id];
+    if(isOpen){
+      this.openedLists[list.id] = false;
+      this.openedLists = { ...this.openedLists};
+      return;
+    }
 
-     if(persistent){
-       await updateOpenList(list.id, list.activeCount);
-     } else {
-       await this.getListItems(list.id);
-     }
-   }
-
-   async updateOpenList(listId, activeCount){
-     try {
-       const list_details = await this.hass.callApi('post', this.baseApiUrl, {
-         command: 'get_list_items',
-         list_id: listId
-       });
-
-       if(list_details.list.length != activeCount){
-         //this.listItems[listId] = list_details.list;
-         //this.openedLists[listId] = true;
-         //this.openedLists = { ...this.openedLists };
-         this.performUpdate();
-       }
-
-     } catch (error) {
-       console.error({ error })
-     }
-   }
+    await this.getListItems(list.id);
+  }
 
   /**
    * gets a list's items and saves in listItems property to trigger redraw
@@ -13556,7 +13532,7 @@ class OurGroceriesCard extends lit_element__WEBPACK_IMPORTED_MODULE_1__["LitElem
 
       let isOpen = this.openedLists[list.id];
       let listDetails = isOpen && this.listItems[list.id];
-      if (this.config.expanded) this.openList(list, true);
+      if (this.config.expanded) this.openList(list);
 
       let listsHaveBeenSpecified = (this.config.show_lists.length > 0);
 
@@ -13591,7 +13567,7 @@ class OurGroceriesCard extends lit_element__WEBPACK_IMPORTED_MODULE_1__["LitElem
           <tr>
             <td class='td td-name pointer'>
               <ha-icon icon="mdi:plus" @click="${event => this.toggleNewItem(event, list.id)}"></ha-icon>
-              <span @click=${() => this.openList(list, false)}>${list.name}</span>
+              <span @click=${() => this.openList(list)}>${list.name}</span>
             </td>
             <td class='td td-count'>
               ${list.activeCount}
@@ -13896,3 +13872,4 @@ const style = lit_element__WEBPACK_IMPORTED_MODULE_0__["css"]`
 /***/ })
 
 /******/ });
+//# sourceMappingURL=our-groceries-card.js.map
