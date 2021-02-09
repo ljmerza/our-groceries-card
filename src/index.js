@@ -90,13 +90,17 @@ class OurGroceriesCard extends LitElement {
     // if list is already open and were are not setting
     // persistent bool then just close it
     const isOpen = this.openedLists[list.id];
-    if(isOpen && !persistent){
+    if(isOpen){
       this.openedLists[list.id] = false;
       this.openedLists = { ...this.openedLists};
       return;
     }
 
-    await this.getListItems(list.id);
+    if(persistent){
+      this.performUpdate();
+    } else {
+      await this.getListItems(list.id);
+    }
   }
 
   /**
