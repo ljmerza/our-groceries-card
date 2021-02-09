@@ -85,11 +85,12 @@ class OurGroceriesCard extends LitElement {
    * Opens a list's details
    * @param {} list
    */
-  async openList(list) {
+  async openList(list, persistent) {
 
-    // if list is already open then just close it
+    // if list is already open and were are not setting
+    // persistent bool then just close it
     const isOpen = this.openedLists[list.id];
-    if(isOpen){
+    if(isOpen && !persistent){
       this.openedLists[list.id] = false;
       this.openedLists = { ...this.openedLists};
       return;
@@ -190,7 +191,7 @@ class OurGroceriesCard extends LitElement {
 
       let isOpen = this.openedLists[list.id];
       let listDetails = isOpen && this.listItems[list.id];
-      if (this.config.expanded) this.openList(list);
+      if (this.config.expanded) this.openList(list, true);
 
       let listsHaveBeenSpecified = (this.config.show_lists.length > 0);
 
@@ -226,7 +227,7 @@ class OurGroceriesCard extends LitElement {
           <tr>
             <td class='td td-name pointer'>
               <ha-icon icon="mdi:plus" @click="${event => this.toggleNewItem(event, list.id)}"></ha-icon>
-              <span @click=${() => this.openList(list)}>${list.name}</span>
+              <span @click=${() => this.openList(list, false)}>${list.name}</span>
             </td>
             <td class='td td-count'>
               ${list.activeCount}
