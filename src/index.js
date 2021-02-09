@@ -97,9 +97,28 @@ class OurGroceriesCard extends LitElement {
     }
 
     if(persistent){
-      this.performUpdate();
+      await updateOpenList(list.id, list.activeCount);
     } else {
       await this.getListItems(list.id);
+    }
+  }
+
+  async updateOpenList(listId, activeCount){
+    try {
+      const list_details = await this.hass.callApi('post', this.baseApiUrl, {
+        command: 'get_list_items',
+        list_id: listId
+      });
+
+      if(list_details.list.length != activeCount){
+        //this.listItems[listId] = list_details.list;
+        //this.openedLists[listId] = true;
+        //this.openedLists = { ...this.openedLists };
+        this.performUpdate();
+      }
+
+    } catch (error) {
+      console.error({ error })
     }
   }
 
