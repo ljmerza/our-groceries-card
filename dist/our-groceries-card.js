@@ -13298,7 +13298,7 @@ try {
 /*! exports provided: name, version, description, keywords, repository, author, license, dependencies, devDependencies, scripts, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"our-groceries-card\",\"version\":\"1.5.13\",\"description\":\"An Our Groceries card for Home Assistant Lovelace UI\",\"keywords\":[\"home-assistant\",\"homeassistant\",\"hass\",\"automation\",\"lovelace\",\"Our Groceries\",\"custom-cards\"],\"repository\":\"git@github.com:jampez77/our-groceries-card.git\",\"author\":\"Jamie Pezone <jampez77@gmail.com>\",\"license\":\"MIT\",\"dependencies\":{\"@babel/polyfill\":\"^7.4.4\",\"lit-element\":\"^2.2.0\"},\"devDependencies\":{\"@babel/cli\":\"^7.5.5\",\"@babel/core\":\"^7.5.5\",\"@babel/preset-env\":\"^7.5.5\",\"babel-loader\":\"^8.0.6\",\"eslint\":\"^6.0.1\",\"eslint-config-airbnb-base\":\"^13.2.0\",\"eslint-plugin-import\":\"^2.18.2\",\"webpack\":\"^4.36.1\",\"webpack-cli\":\"^3.3.6\",\"webpack-merge\":\"^4.2.1\"},\"scripts\":{\"lint\":\"eslint ./src\",\"start\":\"webpack --watch --config webpack/config.dev.js\",\"build\":\"webpack --config webpack/config.prod.js\"}}");
+module.exports = JSON.parse("{\"name\":\"our-groceries-card\",\"version\":\"1.5.14\",\"description\":\"An Our Groceries card for Home Assistant Lovelace UI\",\"keywords\":[\"home-assistant\",\"homeassistant\",\"hass\",\"automation\",\"lovelace\",\"Our Groceries\",\"custom-cards\"],\"repository\":\"git@github.com:jampez77/our-groceries-card.git\",\"author\":\"Jamie Pezone <jampez77@gmail.com>\",\"license\":\"MIT\",\"dependencies\":{\"@babel/polyfill\":\"^7.4.4\",\"lit-element\":\"^2.2.0\"},\"devDependencies\":{\"@babel/cli\":\"^7.5.5\",\"@babel/core\":\"^7.5.5\",\"@babel/preset-env\":\"^7.5.5\",\"babel-loader\":\"^8.0.6\",\"eslint\":\"^6.0.1\",\"eslint-config-airbnb-base\":\"^13.2.0\",\"eslint-plugin-import\":\"^2.18.2\",\"webpack\":\"^4.36.1\",\"webpack-cli\":\"^3.3.6\",\"webpack-merge\":\"^4.2.1\"},\"scripts\":{\"lint\":\"eslint ./src\",\"start\":\"webpack --watch --config webpack/config.dev.js\",\"build\":\"webpack --config webpack/config.prod.js\"}}");
 
 /***/ }),
 
@@ -13896,4 +13896,3 @@ const style = lit_element__WEBPACK_IMPORTED_MODULE_0__["css"]`
 /***/ })
 
 /******/ });
-//# sourceMappingURL=our-groceries-card.js.map
