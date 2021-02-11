@@ -13298,7 +13298,7 @@ try {
 /*! exports provided: name, version, description, keywords, repository, author, license, dependencies, devDependencies, scripts, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"our-groceries-card\",\"version\":\"1.5.10\",\"description\":\"An Our Groceries card for Home Assistant Lovelace UI\",\"keywords\":[\"home-assistant\",\"homeassistant\",\"hass\",\"automation\",\"lovelace\",\"Our Groceries\",\"custom-cards\"],\"repository\":\"git@github.com:jampez77/our-groceries-card.git\",\"author\":\"Jamie Pezone <jampez77@gmail.com>\",\"license\":\"MIT\",\"dependencies\":{\"@babel/polyfill\":\"^7.4.4\",\"lit-element\":\"^2.2.0\"},\"devDependencies\":{\"@babel/cli\":\"^7.5.5\",\"@babel/core\":\"^7.5.5\",\"@babel/preset-env\":\"^7.5.5\",\"babel-loader\":\"^8.0.6\",\"eslint\":\"^6.0.1\",\"eslint-config-airbnb-base\":\"^13.2.0\",\"eslint-plugin-import\":\"^2.18.2\",\"webpack\":\"^4.36.1\",\"webpack-cli\":\"^3.3.6\",\"webpack-merge\":\"^4.2.1\"},\"scripts\":{\"lint\":\"eslint ./src\",\"start\":\"webpack --watch --config webpack/config.dev.js\",\"build\":\"webpack --config webpack/config.prod.js\"}}");
+module.exports = JSON.parse("{\"name\":\"our-groceries-card\",\"version\":\"1.4.0\",\"description\":\"An Our Groceries card for Home Assistant Lovelace UI\",\"keywords\":[\"home-assistant\",\"homeassistant\",\"hass\",\"automation\",\"lovelace\",\"Our Groceries\",\"custom-cards\"],\"repository\":\"git@github.com:ljmerza/our-groceries-card.git\",\"author\":\"Leonardo Merza <ljmerza@gmail.com>\",\"license\":\"MIT\",\"dependencies\":{\"@babel/polyfill\":\"^7.4.4\",\"lit-element\":\"^2.2.0\"},\"devDependencies\":{\"@babel/cli\":\"^7.5.5\",\"@babel/core\":\"^7.5.5\",\"@babel/preset-env\":\"^7.5.5\",\"babel-loader\":\"^8.0.6\",\"eslint\":\"^6.0.1\",\"eslint-config-airbnb-base\":\"^13.2.0\",\"eslint-plugin-import\":\"^2.18.2\",\"webpack\":\"^4.36.1\",\"webpack-cli\":\"^3.3.6\",\"webpack-merge\":\"^4.2.1\"},\"scripts\":{\"lint\":\"eslint ./src\",\"start\":\"webpack --watch --config webpack/config.dev.js\",\"build\":\"webpack --config webpack/config.prod.js\"}}");
 
 /***/ }),
 
@@ -13527,6 +13527,9 @@ class OurGroceriesCard extends lit_element__WEBPACK_IMPORTED_MODULE_1__["LitElem
    * @return {TemplateResult}
    */
   renderBody() {
+    let listsHaveBeenSpecified = (this.config.show_lists.length > 0);
+    let allowingEmptyLists = this.config.show_empty;
+
     const body = (this.entity.attributes.shopping_lists || []).map(list => {
       let addingItem = (this.showAddItems[list.id] || {});
 
@@ -13534,12 +13537,9 @@ class OurGroceriesCard extends lit_element__WEBPACK_IMPORTED_MODULE_1__["LitElem
       let listDetails = isOpen && this.listItems[list.id];
       if (this.config.expanded) this.openList(list);
 
-      let listsHaveBeenSpecified = (this.config.show_lists.length > 0);
-
       let listIsSpecificallyIncluded = this.config.show_lists.includes(list.id);
 
       let listIsCurrentlyEmpty = (list.activeCount <= 0);
-      let allowingEmptyLists = this.config.show_empty;
 
       let shouldShowList = false;
 

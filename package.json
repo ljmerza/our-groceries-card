@@ -1,6 +1,6 @@
 {
     "name": "our-groceries-card",
-    "version": "1.5.10",
+    "version": "1.4.0",
     "description": "An Our Groceries card for Home Assistant Lovelace UI",
     "keywords": [
         "home-assistant",
@@ -11,8 +11,8 @@
         "Our Groceries",
         "custom-cards"
     ],
-    "repository": "git@github.com:jampez77/our-groceries-card.git",
-    "author": "Jamie Pezone <jampez77@gmail.com>",
+    "repository": "git@github.com:ljmerza/our-groceries-card.git",
+    "author": "Leonardo Merza <ljmerza@gmail.com>",
     "license": "MIT",
     "dependencies": {
         "@babel/polyfill": "^7.4.4",
