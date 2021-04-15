@@ -187,6 +187,20 @@ class OurGroceriesCard extends LitElement {
       let listDetails = isOpen && this.listItems[list.id];
       if (this.config.expanded) this.openList(list);
 
+      let hideList = false;
+
+      // if list of lists we only want to show is given then see if we want to show this list
+      if (this.config.show_lists && this.config.show_lists.length > 0) {
+        hideList = !this.config.show_lists.includes(list.id);
+      }
+
+      // hide empty lists if wanted - this overrides show_lists
+      if (this.config.hide_empty_lists && list.activeCount === 0) {
+        hideList = true;
+      }
+
+      if (hideList) return null;
+
       return html`
         <tr>
           <td class="td td-name pointer">

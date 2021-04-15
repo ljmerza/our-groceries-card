@@ -34,6 +34,9 @@ show_header: true
 entity: sensor.our_groceries
 show_crossed_off: false
 sort_by_name: true
+hide_empty_lists: false,
+show_lists:
+  - testlistx
 ```
 
 ## Options
@@ -46,6 +49,8 @@ sort_by_name: true
 | entity | string | **Optional** | `sensor.our_groceries` | the our groceries sensor |
 | show_crossed_off | boolean | **Optional** | `true` | show crossed of list items |
 | sort_by_name | boolean | **Optional** | `false` | sort all items by name |
+| hide_empty_lists | boolean | **Optional** | `false` | hide lists with no active items |
+| show_lists | list | **Optional** | `false` | list of list ids to only show on card |
 
 </br>
 ---

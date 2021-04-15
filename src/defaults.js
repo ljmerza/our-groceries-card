@@ -5,4 +5,6 @@ export default {
   show_crossed_off: true,
   expanded: false,
   sort_by_name: false,
+  hide_empty_lists: false,
+  show_lists: [],
 };
