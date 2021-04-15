@@ -33,6 +33,7 @@ title: Our Shopping
 show_header: true
 entity: sensor.our_groceries
 show_crossed_off: false
+sort_by_name: true
 ```
 
 ## Options
@@ -44,6 +45,7 @@ show_crossed_off: false
 | show_header | boolean | **Optional** | `true` | Show or hide header| 
 | entity | string | **Optional** | `sensor.our_groceries` | the our groceries sensor |
 | show_crossed_off | boolean | **Optional** | `true` | show crossed of list items |
+| sort_by_name | boolean | **Optional** | `false` | sort all items by name |
 
 </br>
 ---
