@@ -32,7 +32,7 @@ type: 'custom:our-groceries-card'
 title: Our Shopping
 show_header: true
 entity: sensor.our_groceries
-show_crossed_off: false
+show_crossed_off: true
 sort_by_name: true
 hide_empty_lists: false
 show_lists:
