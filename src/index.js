@@ -290,11 +290,16 @@ class OurGroceriesCard extends LitElement {
       crossedOffItems.sort((a, b) => (a.value > b.value ? 1 : -1));
     }
 
-    // if we dont show crossed off items only look at active items
-    if (!this.config.show_crossed_off && crossedOffItems.length === 0)
+    // if show crossed off then see if active AND crossed off items are empty
+    if (
+      this.config.show_crossed_off &&
+      crossedOffItems.length === 0 &&
+      activeItems.length === 0
+    )
       return this.renderNoItems();
 
-    if (crossedOffItems.length === 0 && crossedOffItems.length === 0)
+    // if we dont want to show crossed off then obly wory if active items are empty
+    if (!this.config.show_crossed_off && activeItems.length === 0)
       return this.renderNoItems();
 
     return html`
