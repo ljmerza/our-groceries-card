@@ -1,5 +1,5 @@
 # Our Groceries Card
-Manage your [Our Groceries](https://www.ourgroceries.com/) lists in your [Home Assistant](https://www.home-assistant.io/) lovelace UI. 
+Manage your [Our Groceries](https://www.ourgroceries.com/) lists in your [Home Assistant](https://www.home-assistant.io/) lovelace UI.
 
 Multiple lists are supported as shown below.
 
@@ -9,6 +9,8 @@ Multiple lists are supported as shown below.
 [![License][license-shield]](LICENSE.md)
 ![Project Maintenance][maintenance-shield]
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=for-the-badge)](https://github.com/custom-components/hacs)
+[![support](https://img.shields.io/badge/Support-ask%20for%20help%20here-blue)
+
 
 ## Features
 * show your shopping lists
@@ -66,3 +68,4 @@ Enjoy my card? Help me out for a couple of :beers: or a :coffee:!
 [maintenance-shield]: https://img.shields.io/badge/maintainer-Leonardo%20Merza%20%40ljmerza-blue.svg?style=for-the-badge
 [releases-shield]: https://img.shields.io/github/release/ljmerza/our-groceries-card.svg?style=for-the-badge
 [releases]: https://github.com/ljmerza/our-groceries-card/releases
+[support]: https://community.home-assistant.io/t/our-groceries-integration-and-lovelace-card/293484
