@@ -5,10 +5,8 @@ Multiple lists are supported as shown below.
 
 <img src='https://raw.githubusercontent.com/ljmerza/our-groceries-card/master/card.png' />
 
-[![GitHub Release][releases-shield]][releases]
-[![License][license-shield]](LICENSE.md)
-![Project Maintenance][maintenance-shield]
-[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=for-the-badge)]()
+[![License](https://img.shields.io/github/license/ljmerza/our-groceries-card?style=for-the-badge)](LICENSE.md)
+[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=for-the-badge)](https://github.com/custom-components/hacs)
 [![support](https://img.shields.io/badge/Support-ask%20for%20help%20here-blue?style=for-the-badge)](https://community.home-assistant.io/t/our-groceries-integration-and-lovelace-card/293484)
 
 
