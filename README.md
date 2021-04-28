@@ -8,7 +8,7 @@ Multiple lists are supported as shown below.
 [![GitHub Release][releases-shield]][releases]
 [![License][license-shield]](LICENSE.md)
 ![Project Maintenance][maintenance-shield]
-[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=for-the-badge)](https://github.com/custom-components/hacs)
+[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=for-the-badge)(https://github.com/custom-components/hacs)
 [![support](https://img.shields.io/badge/Support-ask%20for%20help%20here-blue?style=for-the-badge)
 
 
