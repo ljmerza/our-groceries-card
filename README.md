@@ -1,7 +1,7 @@
 # Our Groceries Card
 
 [![License](https://img.shields.io/github/license/ljmerza/our-groceries-card?style=for-the-badge)](LICENSE.md)
-[![support](https://img.shields.io/badge/Support-ask%20for%20help%20here-blue?style=for-the-badge)](https://community.home-assistant.io/t/our-groceries-integration-and-lovelace-card/293484)
+[![support](https://img.shields.io/badge/Support-ask%20for%20help%20here-blue?style=for-the-badge)](https://community.home-assistant.io/t/our-groceries-card/303388)
 
 Manage your [Our Groceries](https://www.ourgroceries.com/) lists in your [Home Assistant](https://www.home-assistant.io/) lovelace UI.
 
