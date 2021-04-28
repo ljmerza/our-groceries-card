@@ -5,13 +5,12 @@
 
 Manage your [Our Groceries](https://www.ourgroceries.com/) lists in your [Home Assistant](https://www.home-assistant.io/) lovelace UI.
 
-Multiple lists are supported as shown below.
-
 <img src='https://raw.githubusercontent.com/ljmerza/our-groceries-card/master/card.png' />
 
 ## Features
 * show your shopping lists
 * toggle crossed off items in a list
+* add items to a list
 
 ## Installation through [HACS](https://github.com/custom-components/hacs)
 
