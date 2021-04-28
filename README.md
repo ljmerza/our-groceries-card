@@ -8,7 +8,7 @@ Multiple lists are supported as shown below.
 [![GitHub Release][releases-shield]][releases]
 [![License][license-shield]](LICENSE.md)
 ![Project Maintenance][maintenance-shield]
-[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=for-the-badge)(https://github.com/custom-components/hacs)
+[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=for-the-badge)
 [![support](https://img.shields.io/badge/Support-ask%20for%20help%20here-blue?style=for-the-badge)
 
 
@@ -69,3 +69,4 @@ Enjoy my card? Help me out for a couple of :beers: or a :coffee:!
 [releases-shield]: https://img.shields.io/github/release/ljmerza/our-groceries-card.svg?style=for-the-badge
 [releases]: https://github.com/ljmerza/our-groceries-card/releases
 [support]: https://community.home-assistant.io/t/our-groceries-integration-and-lovelace-card/293484
+[hacs_badge]: https://github.com/custom-components/hacs
