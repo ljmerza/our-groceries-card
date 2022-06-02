@@ -12,11 +12,11 @@ Manage your [Our Groceries](https://www.ourgroceries.com/) lists in your [Home A
 * toggle crossed off items in a list
 * add items to a list
 
-## Installation through [HACS](https://github.com/custom-components/hacs)
+## Installation through [HACS](https://hacs.xyz/)
 
 Use [HACS](https://github.com/custom-components/hacs) to install the **Our Groceries Card** plugin.
 
-The [Our Groceries](https://github.com/ljmerza/ha-our-groceries) integration is required for this card to work which is also available via [HACS](https://github.com/custom-components/hacs)
+The [Our Groceries](https://github.com/ljmerza/ha-our-groceries) integration is required for this card to work which is also available via [HACS](https://hacs.xyz/)
 
 ## Configuration
 
