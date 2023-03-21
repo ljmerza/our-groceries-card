@@ -34,7 +34,7 @@ show_crossed_off: true
 sort_by_name: true
 hide_empty_lists: false
 show_lists:
-  - testlistx
+  - testlistx-ID
 ```
 
 ## Options
